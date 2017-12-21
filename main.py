@@ -9,7 +9,6 @@ import configparser
 import signal
 import discord
 import asyncio
-import functools
 
 ### Config ###
 LOG_FOLDER_NAME = "logs"
@@ -173,9 +172,7 @@ async def send_message(message):
 pendingTasks = client.loop.create_task(main())
 try:
 	done, pendingTasks = client.loop.run_until_complete(client.start(config.get("discord", "token")))
-except KeyboardInterrupt:
-	client.loop.run_until_complete(client.logout())
 except RuntimeError:
 	pass
-finally:
-	client.loop.close()
+
+client.loop.close()
